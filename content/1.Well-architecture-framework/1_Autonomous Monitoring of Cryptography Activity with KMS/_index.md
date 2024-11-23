@@ -18,7 +18,7 @@ In this labs provide an example scenario of monitoring KMS servie for encryption
 - SNS: send email notification when an event occurs
 
 **Topology**
-![1](/AWS-Security-Workshop/images/well_1/topo.PNG)
+![1](/AWS-Security-Workshop/images/well_1/topo.png)
 
 ## Steps:
 - **[Step 1: Deploy web application for encrypt/decrypt testing with ECR](#deploy-application-and-ecr)**
