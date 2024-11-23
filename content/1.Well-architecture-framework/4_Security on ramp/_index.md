@@ -100,7 +100,7 @@ Resources like databases and instances can be remotely accessed via the network 
 
 ### Automated assessment
 
-![topo1](/AWS-Security-Workshop/images/on-ram1/topo1.PNG)
+![topo1](/AWS-Security-Workshop/images/on-ram1/topo1.png)
 
 1. Security hub collect checks from AWS config compliant assessment example:
    ![1](/AWS-Security-Workshop/images/on-ram1/1-5.PNG)
@@ -205,7 +205,7 @@ Remediation link for guide on how to fix issues:
 ![1](/AWS-Security-Workshop/images/on-ram1/res1.PNG)
 
 ### Manual assessment
-![2](/AWS-Security-Workshop/images/on-ram1/topo2.PNG)
+![2](/AWS-Security-Workshop/images/on-ram1/topo2.png)
 
 For the manual assessment -> AWS Well architected tools
 - Custom lens (can be shared between accounts)
@@ -266,7 +266,7 @@ For the manual assessment -> AWS Well architected tools
 ![2](/AWS-Security-Workshop/images/on-ram1/2-6.PNG)
 ![2](/AWS-Security-Workshop/images/on-ram1/2-5.PNG)
 ### AWS trusted advisor
-![2](/AWS-Security-Workshop/images/on-ram1/topo3.PNG)
+![2](/AWS-Security-Workshop/images/on-ram1/topo3.png)
 
 If you have a Basic Support and Developer Support plan, you can use the Trusted Advisor console to access all checks in the Service limits  category and a subset of checks in the security category:
 

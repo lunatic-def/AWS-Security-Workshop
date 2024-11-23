@@ -62,28 +62,28 @@ aws sns subscribe \
 
 ```
 
-![1](/AWS-Security-Workshop/images/kms_2/1-sns.png)
-![1.1](/AWS-Security-Workshop/images/kms_2/1-1sns.png)
+![1](/AWS-Security-Workshop/images/kms_2/1-sns.PNG)
+![1.1](/AWS-Security-Workshop/images/kms_2/1-1sns.PNG)
 
 2. Create Eventbridge rule
 
 - create rule to send sms notification about external access analyzer findings.
-  ![1.1](/AWS-Security-Workshop/images/kms_2/1.2-rule.png)
-  ![1.1](/AWS-Security-Workshop/images/kms_2/1.3-eventpattern.png)
-  ![1.1](/AWS-Security-Workshop/images/kms_2/1.4-snstarget.png)
-  ![1.1](/AWS-Security-Workshop/images/kms_2/1.5.png)
+  ![1.1](/AWS-Security-Workshop/images/kms_2/1.2-rule.PNG)
+  ![1.1](/AWS-Security-Workshop/images/kms_2/1.3-eventpattern.PNG)
+  ![1.1](/AWS-Security-Workshop/images/kms_2/1.4-snstarget.PNG)
+  ![1.1](/AWS-Security-Workshop/images/kms_2/1.5.PNG)
 
 3. Create Access analyzer for External access analysis within current account
-   ![2](/AWS-Security-Workshop/images/kms_2/2-accessanalyzer.png)
+   ![2](/AWS-Security-Workshop/images/kms_2/2-accessanalyzer.PNG)
 4. Test if Access Analyzer generates findings -> public access policy for KMS key
-   ![2](/AWS-Security-Workshop/images/kms_2/2.1-key.png)
-   ![2](/AWS-Security-Workshop/images/kms_2/2.2-key.png)
+   ![2](/AWS-Security-Workshop/images/kms_2/2.1-key.PNG)
+   ![2](/AWS-Security-Workshop/images/kms_2/2.2-key.PNG)
    => The call above added a "\*" principal to the key policy, making the key accessible for any AWS principal. From now on, Access Analyzer will detect any public access to your AWS KMS key and generate a finding. The CloudWatch events rule will be invoked and will publish a message to the Amazon SNS topic.
 
 OUTPUTS:
-![3](/AWS-Security-Workshop/images/kms_2/3-res.png)
-![3](/AWS-Security-Workshop/images/kms_2/3.1.png)
-![3](/AWS-Security-Workshop/images/kms_2/3.2.png)
+![3](/AWS-Security-Workshop/images/kms_2/3-res.PNG)
+![3](/AWS-Security-Workshop/images/kms_2/3.1.PNG)
+![3](/AWS-Security-Workshop/images/kms_2/3.2.PNG)
 
 ```json
 {

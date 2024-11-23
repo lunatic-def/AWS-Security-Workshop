@@ -86,7 +86,7 @@ Lambda create table function:
 Lambda API GW function:
 ![1](/AWS-Security-Workshop/images/well_3/2-3.PNG)
 ![1](/AWS-Security-Workshop/images/well_3/2-4.PNG)
-![1](/AWS-Security-Workshop/images/well_3/2-5.PNG)
+![1](/AWS-Security-Workshop/images/well_3/2-5apiinvokelambda.PNG)
 **RDS**
 
 3. Randomly generated RDS password with secret manager:
