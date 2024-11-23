@@ -123,7 +123,7 @@ AssumeRolePolicyDocument:
                 Action: 'logs:*'
                 Resource: !GetAtt ECSCloudWatchLogsGroup.Arn 
 ```
-![2](/AWS-Security-Workshop/images/well_1/2.5-ecs-taskrole.PNG)
+![2](/AWS-Security-Workshop/images/well_1/2.5-ecs-taskrole.png)
 
 **4) Test simple connection:**
 
