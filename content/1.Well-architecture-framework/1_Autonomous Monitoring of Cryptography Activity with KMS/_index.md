@@ -90,7 +90,7 @@ RDS database:
 ![2](/AWS-Security-Workshop/images/well_1/2.4-rds.PNG)
 ECS service application information:
 ![2](/AWS-Security-Workshop/images/well_1/2.5-ecs.PNG)
-![2](/AWS-Security-Workshop/images/well_1/2.5-ecstask-info.PNG)
+![2](/AWS-Security-Workshop/images/well_1/2.5-ecstask-info.png)
 ECS service roles: allow putting loggroups, create/get KMS key, RDS Secret manger
 ```js
 AssumeRolePolicyDocument:
