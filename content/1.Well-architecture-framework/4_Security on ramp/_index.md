@@ -100,7 +100,7 @@ Resources like databases and instances can be remotely accessed via the network 
 
 ### Automated assessment
 
-![topo1](/AWS-Security-Workshop/images/on-ram1/topo1.png)
+![topo1](/AWS-Security-Workshop/images/on-ram1/topo1.PNG)
 
 1. Security hub collect checks from AWS config compliant assessment example:
    ![1](/AWS-Security-Workshop/images/on-ram1/1-5.PNG)
