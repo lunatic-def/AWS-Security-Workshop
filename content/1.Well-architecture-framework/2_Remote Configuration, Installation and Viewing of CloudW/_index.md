@@ -24,7 +24,7 @@ without having to directly access the instance, or accessing data
 5) **Reduce attack surface**: Can close SSH port on your instance, reducing the attack surface of the workload
 
 **Topology**
-![topo](/images/well_2/topo.PNG)
+![topo](/AWS-Security-Workshop/images/well_2/topo.PNG)
 
 ## Steps
 - **[Step 1: Create base infrastructure for testing](#base-infrastructure)**
@@ -41,13 +41,13 @@ Deploy the following services:
 
 **Result**
 EC2:
-![1](/images/well_2/1.png)
-![1](/images/well_2/1.2.png)
-![1](/images/well_2/1.3.png)
+![1](/AWS-Security-Workshop/images/well_2/1.png)
+![1](/AWS-Security-Workshop/images/well_2/1.2.png)
+![1](/AWS-Security-Workshop/images/well_2/1.3.png)
 EC2 role:
-![1](/images/well_2/1.4.png)
+![1](/AWS-Security-Workshop/images/well_2/1.4.png)
 S3:
-![1](/images/well_2/1.5.png)
+![1](/AWS-Security-Workshop/images/well_2/1.5.png)
 Bucket policy: Allow CloudWatch service in "us-east-1" region to get the ACL and put objects to the S3 bucket.
 ```json
 {
@@ -78,9 +78,9 @@ Bucket policy: Allow CloudWatch service in "us-east-1" region to get the ACL and
 The CloudWatch agent needs to be installed on the EC2 instance using SSM Run command:
 - Perform actions on EC2 instances remotely.
 - Manage the configuration of many instances with a single command. 
-![2](/images/well_2/2.png)
+![2](/AWS-Security-Workshop/images/well_2/2.png)
 Remember to enable S3 logs
-![2](/images/well_2/2.1.png)
+![2](/AWS-Security-Workshop/images/well_2/2.1.png)
 
 **2) Store the CloudWatch config file in parameter store (ssm parameter)**
 
@@ -88,7 +88,7 @@ Store the CW agent configuration file:
 - For reusability
 - Configuration data specifies which logs and metrics will be sent to CW as well as the source of this data
 
-![3](/images/well_2/3.png)
+![3](/AWS-Security-Workshop/images/well_2/3.png)
 The config file specifies which metrics and logs to collect:
 1. The agent section specifies which user to run the logs agent as, and how frequently to collect logs.
 2. The logs section specifies which log files to monitor and which log group and stream to place those logs in. This information can be seen in collect_list. 
@@ -175,29 +175,29 @@ The config file specifies which metrics and logs to collect:
 Document name prefix : Equals : AmazonCloudWatch-ManageAgent
 AmazonCloudWatch-ManageAgent.
 ```
-![4](/images/well_2/4.png)
+![4](/AWS-Security-Workshop/images/well_2/4.png)
 
 2. Generate the logs:
 
 Access to non-exist path route to generate '404' logs:
 
-![5](/images/well_2/5.png)
+![5](/AWS-Security-Workshop/images/well_2/5.png)
 **CloudWatch logs**
-![5](/images/well_2/5.1.png)
-![5](/images/well_2/5.2.png)
+![5](/AWS-Security-Workshop/images/well_2/5.1.png)
+![5](/AWS-Security-Workshop/images/well_2/5.2.png)
 
 #### Export logs to S3 && Query logs using Athena
 **Export CW logs to S3:**
-![6](/images/well_2/6.png)
-![6](/images/well_2/6.1.png)
+![6](/AWS-Security-Workshop/images/well_2/6.png)
+![6](/AWS-Security-Workshop/images/well_2/6.1.png)
 **Query logs from S3 using Athena:**
 
 Assign S3 location:
-![7](/images/well_2/7.png)
+![7](/AWS-Security-Workshop/images/well_2/7.png)
 Create new table:
-![7](/images/well_2/7.1.png)
+![7](/AWS-Security-Workshop/images/well_2/7.1.png)
 Query information of request send to EC2 target:
-![7](/images/well_2/7.2.png)
+![7](/AWS-Security-Workshop/images/well_2/7.2.png)
 ```sql
 CREATE EXTERNAL TABLE IF NOT EXISTS `security_lab_apache_access_logs` (
   request_date string,
@@ -219,17 +219,17 @@ TBLPROPERTIES (
   'compressionType' = 'gzip'
   );
 ```
-![7](/images/well_2/7.3.png)
+![7](/AWS-Security-Workshop/images/well_2/7.3.png)
 
-![7](/images/well_2/7.4.png)
+![7](/AWS-Security-Workshop/images/well_2/7.4.png)
 
-![7](/images/well_2/7.5.png)
+![7](/AWS-Security-Workshop/images/well_2/7.5.png)
 
 #### Create a QuickSight Visualization
 [Sign up guide](https://docs.aws.amazon.com/quicksight/latest/user/signing-up.html)
-![8](/images/well_2/8.png)
-![8](/images/well_2/8.1.png)
-![8](/images/well_2/8.2.png)
-![8](/images/well_2/8.3.png)
+![8](/AWS-Security-Workshop/images/well_2/8.png)
+![8](/AWS-Security-Workshop/images/well_2/8.1.png)
+![8](/AWS-Security-Workshop/images/well_2/8.2.png)
+![8](/AWS-Security-Workshop/images/well_2/8.3.png)
 
 
