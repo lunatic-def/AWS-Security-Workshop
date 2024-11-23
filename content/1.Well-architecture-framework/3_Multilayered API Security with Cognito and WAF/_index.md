@@ -79,14 +79,14 @@ Properties:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
 ```
 
-![1](/AWS-Security-Workshop/images/well_3/2.png)
+![1](/AWS-Security-Workshop/images/well_3/2.PNG)
 Lambda create table function:
-![1](/AWS-Security-Workshop/images/well_3/2-1.png)
-![1](/AWS-Security-Workshop/images/well_3/2-2.png)
+![1](/AWS-Security-Workshop/images/well_3/2-1.PNG)
+![1](/AWS-Security-Workshop/images/well_3/2-2.PNG)
 Lambda API GW function:
-![1](/AWS-Security-Workshop/images/well_3/2-3.png)
-![1](/AWS-Security-Workshop/images/well_3/2-4.png)
-![1](/AWS-Security-Workshop/images/well_3/2-5.png)
+![1](/AWS-Security-Workshop/images/well_3/2-3.PNG)
+![1](/AWS-Security-Workshop/images/well_3/2-4.PNG)
+![1](/AWS-Security-Workshop/images/well_3/2-5.PNG)
 **RDS**
 
 3. Randomly generated RDS password with secret manager:
@@ -108,7 +108,7 @@ Lambda API GW function:
           Value: WARDSPassword
 ```
 
-![1](/AWS-Security-Workshop/images/well_3/1.png)
+![1](/AWS-Security-Workshop/images/well_3/1.PNG)
 
 **Test lambda connection to rds:**
 
@@ -128,16 +128,16 @@ def send_request_with_token(url, id_token):
     return response
 ```
 
-![1](/AWS-Security-Workshop/images/well_3/2-6.png)
+![1](/AWS-Security-Workshop/images/well_3/2-6.PNG)
 
 ### Secret manager && key rotation:
 
 **Secret created for RDS**
-![1](/AWS-Security-Workshop/images/well_3/3.png)
+![1](/AWS-Security-Workshop/images/well_3/3.PNG)
 **Key rotation**
 
 Enable key rotation
-![1](/AWS-Security-Workshop/images/well_3/3-1.png)
+![1](/AWS-Security-Workshop/images/well_3/3-1.PNG)
 {{% notice note %}}
 **In order for rotation to work !**
 {{% /notice %}}
@@ -145,11 +145,11 @@ Enable key rotation
 
 - Other lambda needing to rotate the key
 - Database and Secret manager service
-  ![1](/AWS-Security-Workshop/images/well_3/3-2.png)
-  ![1](/AWS-Security-Workshop/images/well_3/3-3.png)
+  ![1](/AWS-Security-Workshop/images/well_3/3-2.PNG)
+  ![1](/AWS-Security-Workshop/images/well_3/3-3.PNG)
 
 Rotated password:
-![1](/AWS-Security-Workshop/images/well_3/3-4.png)
+![1](/AWS-Security-Workshop/images/well_3/3-4.PNG)
 Check lambda connection to rds again!!
 
 ### Preventing direct access to the API Gateway
