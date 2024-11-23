@@ -1,6 +1,6 @@
 # Change the default theme to be use when building the site with Hugo
 theme = ["hugo-video","hugo-theme-learn"]
-BaseURL = "https://lunatic-def.github.io/FCJ2024-Mission2/"
+BaseURL = "https://lunatic-def.github.io/AWS-Security-Workshop/"
 # For search functionality
 [outputs]
 home = [ "HTML", "RSS", "JSON"]
