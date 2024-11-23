@@ -1,0 +1,938 @@
+{
+	"schemaVersion": "2021-11-01",
+	"name": "Security Onramp",
+	"description": "This lens is used to evaluate Security Onramp controls - A targeted program for businesses to ensure critical foundational security settings are configured in their account. The intent is to provide a framework for ongoing good security hygiene.",
+	"pillars": [
+	{
+        "id": "SO_1",
+		"name": "SO 1. Accurate Account Information",
+		"questions": [
+        {
+            "id": "so_1_1",
+            "title": "Is the primary account holder information correct?",
+            "description": "Account Owner details must be correct to identify the customer. For example, in the event of loss of MFA and receive security updates and notifications from AWS Trust and Safety team.",
+            "helpfulResource": {
+                "displayText": "The primary account holder is associated with the root user for the AWS Account. Ensure that the root user email address can be accessed by an escalation group, rather than a single individual so that the AWS account is accessible irrespective of people movement. If you lose access to the email address associated with the AWS account, then you can't recover access to the account if you lose the password. Ensure the phone number associated with the account is associated with an individual and not an IVRS endpoint. Do not use the root user for your everyday tasks, even the administrative ones. Instead, adhere to the best practice of using the root user only to create your first IAM user.",
+                "url": "https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-update-contact.html"
+            },
+            "choices": [
+            {
+                "id": "so_1_1_1",
+                "title": "Name, Address and Phone Number correct and up to date.",
+                "helpfulResource":
+                {
+                    "displayText": "Ensure primary account holder information and contact details are updated as soon as possible.",
+                    "url": "https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-update-contact.html#manage-acct-update-contact-primary"
+                },
+                "improvementPlan": {
+                    "displayText": "Ensure primary account holder information and contact details are updated as soon as possible.",
+                    "url": "https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-update-contact.html#manage-acct-update-contact-primary"
+                }
+            },
+            {
+                "id": "so_1_1_2",
+                "title": "Root user email address and password are correct, known and up to date.",
+                "helpfulResource":
+                {
+                    "displayText": "When you first create an Amazon Web Services (AWS) account, you begin with one identity that has complete access to all AWS services and resources in the account. This identity is called the AWS account root user. You can sign in as the root user using the email address and password that you used to create the account.",
+                    "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html"
+                },
+                "improvementPlan": {
+                    "displayText": "Ensure AWS root user email address and password is updated as soon as possible.",
+                    "url": "https://aws.amazon.com/premiumsupport/knowledge-center/change-email-address/"
+                }
+            },
+            {
+                "id": "so_1_1_no",
+                "title": "None of these"
+            }],
+            "riskRules": [{
+                "condition": "so_1_1_1 && so_1_1_2",
+                "risk": "NO_RISK"
+            }, {
+                "condition": "default", 
+                "risk": "HIGH_RISK"
+            }]
+        },
+        {
+            "id": "so_1_2",
+            "title": "Are the alternate accounts configured and up to date?",
+            "description": "Alternate contact details are used to send context specific updates to the teams. For example, AWS sends your Billing contact address a message that your monthly bill is ready.",
+            "helpfulResource": {
+                "displayText": "Alternate contact details are used to send context specific updates to the teams. For example, AWS sends your Billing contact address a message that your monthly bill is ready.",
+                "url": "https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-update-contact.html"
+            },
+            "choices": [
+            {
+                "id": "so_1_2_1",
+                "title": "Alternate contacts are correctly configured - Billing, Operations and Security.",
+                "helpfulResource":{
+                    "displayText": "Ensure you use distribution lists that can be managed without the root user needing to update alternate contacts.",
+                    "url": "https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-update-contact.html#manage-acct-update-contact-alternate-edit"
+                },
+                "improvementPlan": {
+                    "displayText": "Ensure alternate contacts are updated as soon as possible. If you use AWS Organizations, you can now centrally manage alternate contacts for multiple accounts using AWS Organizations.",
+                    "url": "https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-update-contact.html#manage-acct-update-contact-alternate-edit"
+                }
+            },
+            {
+                "id": "so_1_2_no",
+                "title": "None of these"
+            }
+            ],
+            
+            "riskRules": [{
+                "condition": "so_1_2_1",
+                "risk": "NO_RISK"
+            }, {
+                "condition": "default", 
+                "risk": "MEDIUM_RISK"
+            }]
+        }]
+    },
+    {
+
+        "id": "SO_2",
+		"name": "SO 2. Human Access Control",
+		"questions": [
+        {
+            "id": "so_2_1",
+            "title": "Is Multi-Factor Authentication (MFA) enabled for root and IAM users?",
+            "description": "MFA adds extra security because it requires users to provide a short lived code from an AWS supported MFA mechanism in addition to their regular sign-in credentials (username and password) when they access AWS websites or services.",
+            "helpfulResource": {
+                "displayText": "For increased security, we recommend that you configure multi-factor authentication (MFA) to help protect your AWS resources. You can enable MFA for IAM users and the AWS account root user. When you enable MFA for the root user, it affects only the root user credentials. IAM users in the account are distinct identities with their own credentials, and each identity has its own MFA configuration. You can use AWS SSO or any third-party tool that supports single sign-on to enforce the use of MFA with identities."
+            },
+            "choices": [
+            {
+                "id": "so_2_1_1",
+                "title": "MFA is enabled for the root user.",
+				"helpfulResource": {
+                    "displayText": "To enhance the security of your root user credentials, follow the security best practice to activate multi-factor authentication (MFA) for your AWS account. Since the root user can perform sensitive operations in your account, adding this additional layer of authentication helps you to better secure your account.",
+                    "url": "https://docs.aws.amazon.com/accounts/latest/reference/root-user-mfa.html"
+                },
+                "improvementPlan": {
+                    "displayText": "Ensure MFA is configured for the root user. You can use IAM in the AWS Management Console to configure and enable a virtual MFA device for your root user. To manage MFA devices for the AWS account, you must be signed in to AWS using your root user credentials. You cannot manage MFA devices for the root user using other credentials.",
+                    "url": "https://www.wellarchitectedlabs.com/security/100_labs/100_aws_account_and_root_user/1_intro/#12-enable-a-virtual-mfa-device-for-your-aws-account-root-user"
+                }
+            },
+            {
+                "id": "so_2_1_2",
+                "title": "MFA is enabled for the IAM users.",
+                "helpfulResource":{
+					"displayText": "For extra security, we recommend that you require multi-factor authentication (MFA) for all users in your account. With MFA, users have a device that generates a response to an authentication challenge. Both the user's credentials and the device-generated response are required to complete the sign-in process. If a user's password or access keys are compromised, your account resources are still secure because of the additional authentication requirement.",
+                    "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa.html"
+                },
+                "improvementPlan": {
+                    "displayText": "Set up MFA for IAM Users. We recommend using AWS SSO (if you are not using any other single sign-on tool) to enforce use of MFA for IAM users logging in.",
+                    "url": "https://docs.aws.amazon.com/singlesignon/latest/userguide/enable-mfa.html"
+                }
+            },
+            {
+                "id": "so_2_1_no",
+				"title": "None of these"
+            }
+        ],
+
+            "riskRules": [{
+                "condition": "so_2_1_2 && so_2_1_1",
+                "risk": "NO_RISK"
+            },
+			{
+                "condition": "!so_2_1_2 && so_2_1_1",
+                "risk": "MEDIUM_RISK"
+            },
+            {
+                "condition": "default",
+                "risk": "HIGH_RISK"
+            }]
+        },
+        {
+            "id": "so_2_2",
+            "title": "Is least privilege access configured through separation of duties?",
+            "description": "To support multiple users in your AWS account, you must delegate permission to allow individuals to perform only the actions you want to allow (Principle of Least Privilege).",
+            "choices": [
+            {
+                "id": "so_2_2_1",
+                "title": "Non-root users are created based on the purpose of the teams/individuals.",
+                "helpfulResource":{
+					"displayText": "As a best practice, use IAM role temporary credentials to access only the resources you need to do your job (granting least privilege). Configure AWS Single Sign-On to allow users from your external identity source to access AWS resources in your accounts. Within a single account, you can configure an IAM role to allow identities from a SAML or web identity source to assume the role. For IAM users, create separate roles for specific job tasks and assume those roles for those tasks.",
+                    "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#delegate-using-roles"
+                },
+                "improvementPlan": {
+                    "displayText": "Use IAM Access Analyzer to refine access and build least privilege.",
+                    "url": "https://aws.amazon.com/iam/features/analyze-access/"
+                }
+            },
+            {
+                "id": "so_2_2_2",
+                "title": "Centralized identity provider is used to store identities and federate access into AWS account(s).",
+                "helpfulResource":{
+					"displayText": "For workforce identities, rely on an identity provider that enables you to manage identities in a centralized place. This makes it easier to manage access across multiple applications and services, because you are creating, managing, and revoking access from a single location.",
+                    "url": "https://aws.amazon.com/single-sign-on/"
+                },
+                "improvementPlan": {
+                    "displayText": "Use single-sign on to manage identities across single or multiple accounts and map them with purpose specific IAM permissions.",
+                    "url": "https://aws.amazon.com/blogs/security/how-to-create-and-manage-users-within-aws-sso/"
+                }
+            },      
+            {
+                "id": "so_2_2_no",
+				"title": "None of these"
+            }],
+
+            "riskRules": [{
+                "condition": "so_2_2_1 && so_2_2_2",
+                "risk": "NO_RISK"
+            }, 
+            {
+                "condition": "!so_2_2_1 && !so_2_2_2",
+                "risk": "HIGH_RISK"
+            },{
+                "condition": "default",
+                "risk": "MEDIUM_RISK"
+            }]
+        },
+        {
+            "id": "so_2_3",
+            "title": "Are passwords secured through a password policy and rotation workflow?",
+            "description": "Password policies help users setup password with a level of complexity. This adds a layer of security with individual credentials. Rotation of passwords ensures short-lived credentials are in use with user logins.",
+            "choices": [
+            {
+                "id": "so_2_3_1",
+                "title": "Password policy is configured. Default policy is not used.",
+                "helpfulResource": {
+                    "displayText": "Create a password policy with a level of complexity in-line with the organizational security goals.",
+                    "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_passwords_account-policy.html#password-policy-details"
+                },
+                "improvementPlan": {
+                    "displayText": "You can set a password policy on your AWS account to specify complexity requirements and mandatory rotation periods for your IAM users' passwords. The IAM password policy does not apply to the AWS root account password.",
+                    "url": "https://www.wellarchitectedlabs.com/security/100_labs/100_aws_account_and_root_user/1_intro/#17-configure-a-strong-password-policy-for-your-users"
+                }
+            },
+            {
+                "id": "so_2_3_2",
+                "title": "Password rotation workflow is in place and enforced.",
+                "helpfulResource": {
+                    "displayText": "It is a good practice to get an idea of what you have configured already in your AWS account especially if you have had it for a while. Review your password usage with the IAM Credentials Report.",
+                    "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_getting-report.html"
+                },
+                "improvementPlan": {
+                    "displayText": "Generate and download IAM credential report that lists all users in your account and the status of their various credentials, including passwords, access keys, and MFA devices. You can use credential reports to assist in your auditing and compliance efforts. You can use the report to audit the effects of credential lifecycle requirements, such as password and access key rotation.",
+                    "url": "https://www.wellarchitectedlabs.com/security/100_labs/100_aws_account_and_root_user/1_intro/#11-generate-and-review-the-aws-account-credential-report"
+                }
+            },            
+            {
+                "id": "so_2_3_no",
+				"title": "None of these"
+            }],         
+            "riskRules": [
+            {
+                "condition": "so_2_3_1 && so_2_3_2",
+                "risk": "NO_RISK"
+            }, {
+                "condition": "!so_2_3_1 && !so_2_3_2",
+                "risk": "HIGH_RISK"
+            },{
+                "condition": "default",
+                "risk": "MEDIUM_RISK"
+            }]
+        }]
+    },
+    {
+        "id": "SO_3",
+        "name": "SO 3. Programmatic Access Control",
+        "questions": [
+        {
+            "id": "so_3_1",
+            "title": "Are access keys for the root user in use?",
+            "description": "Access keys are long-term credentials for an IAM user or the AWS account root user. You can use access keys to sign programmatic requests to the AWS CLI or AWS API (directly or using the AWS SDK). Access keys consist of two parts: an access key ID (for example, AKIAIOSFODNN7EXAMPLE) and a secret access key (for example, wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY). Like a user name and password, you must use both the access key ID and secret access key together to authenticate your requests. Manage your access keys as securely as you do your user name and password.",
+            "helpfulResource": {
+                "displayText": "As a best practice, do not use root user access keys. The access key for your AWS account root user gives full access to all your resources for all AWS services, including your billing information. You cannot reduce the permissions associated with your AWS account root user access key.",
+                "url": "https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html"
+            },
+            "choices": [
+
+            {
+                "id": "so_3_1_1",
+                "title": "Access keys are not created for the root user.",
+                "helpfulResource":{
+					"displayText": "Lock away AWS account root user access keys.",
+					"url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#lock-away-credentials"
+                },
+                "improvementPlan": {
+					"displayText": "As per best practice, remove all access keys associated with the root user. The access key for your AWS account gives full access to all your resources for all AWS services, including your billing information. You cannot restrict the permissions associated with your AWS account access key.",
+					"url": "https://catalog.us-east-1.prod.workshops.aws/workshops/f21a1ec6-e7bc-482c-a6fc-9f53d28f8ac7/en-US/foundational-controls/3-protectrootuser#delete-root-account-access-keys"
+                }
+            },{
+                "id": "so_3_1_no",
+				"title": "None of these"
+            }],
+            
+            "riskRules": [{
+                "condition": "so_3_1_1",
+                "risk": "NO_RISK"
+            }, {
+                "condition": "default",
+                "risk": "HIGH_RISK"
+            }]
+        },
+        {
+            "id": "so_3_2",
+            "title": "Are access keys for the IAM users short-lived?",
+            "description": "Access keys are long-term credentials for an IAM user or the AWS account root user. You can use access keys to sign programmatic requests to the AWS CLI or AWS API (directly or using the AWS SDK). Access keys consist of two parts: an access key ID (for example, AKIAIOSFODNN7EXAMPLE) and a secret access key (for example, wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY). Like a user name and password, you must use both the access key ID and secret access key together to authenticate your requests. Manage your access keys as securely as you do your user name and password.",
+            "helpfulResource": {
+                "displayText": "As a security best practice, ensure that you regularly rotate (change) IAM user access keys. If your administrator granted you the necessary permissions, you can rotate your own access keys."
+            },
+            "choices": [
+            {
+                "id": "so_3_2_1",
+                "title": "IAM access keys are rotated on a schedule or temporary access keys are used.",
+                "helpfulResource": {
+                    "displayText": "Change your own passwords and access keys regularly, and make sure that all IAM users in your account do as well. That way, if a password or access key is compromised without your knowledge, you limit how long the credentials can be used to access your resources. You can apply a custom password policy to your account to require all your IAM users to rotate their AWS Management Console passwords. You can also choose how often they must do so.",
+                    "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#rotate-credentials"
+                },
+                "improvementPlan": {
+					"displayText": "You can generate and download a credential report that lists all users in your account and the status of their various credentials, including passwords, access keys, and MFA devices. The report serves as a good mechanism to track access key lifecycle.",
+					"url": "https://www.wellarchitectedlabs.com/security/100_labs/100_aws_account_and_root_user/1_intro/#11-generate-and-review-the-aws-account-credential-report"
+                }
+            },{
+                "id": "so_3_2_no",
+				"title": "None of these"
+            }],          
+            "riskRules": [{
+                "condition": "so_3_2_1",
+                "risk": "NO_RISK"
+            }, {
+                "condition": "default",
+                "risk": "HIGH_RISK"
+            }]
+        },
+        {
+            "id": "so_3_3",
+            "title": "Are access keys embedded in the application code?",
+            "description": "As a security best practice, don't embed access keys directly into application code. As the applications evolve and team members change, long lived keys can lead to increased scope of impact in case credentials are accidentally exposed.",
+            "choices": [
+            {
+                "id": "so_3_3_1",
+                "title": "Access keys are rotated on a schedule or not used.",
+				"helpfulResource":{
+					"displayText": "Best practices for managing AWS access keys.",
+                    "url": "https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html"
+				},
+                "improvementPlan": {
+                    "displayText": "Use roles to delegate permissions.",
+                    "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#delegate-using-roles"
+				}
+            },
+            {
+                "id": "so_3_3_2",
+                "title": "IAM roles are used for machines, containers and serverless functions to provision temporary access.",
+				"helpfulResource":{
+					"displayText": "Temporary security credentials in IAM.",
+                    "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html"
+				},
+                "improvementPlan": {
+                    "displayText": "Use AWS Security Token Service (AWS STS) to create and provide trusted users with temporary security credentials that can control access to your AWS resources.",
+                    "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html"
+				}
+            },
+            {
+                "id": "so_3_3_no",
+				"title": "None of these"
+            }],           
+            "riskRules": [{
+                "condition": "so_3_3_1 && so_3_3_2",
+                "risk": "NO_RISK"
+            }, {
+                "condition": "default",
+                "risk": "HIGH_RISK"
+            }]
+        }]
+    },
+    {
+        "id": "SO_4",
+        "name": "SO 4. Secrets Management",
+        "questions": [
+        {
+            "id": "so_4_1",
+            "title": "Are secrets stored in an encrypted store?",
+            "description": "As a best practice, secrets should be stored in an encrypted store. Encryption helps protect data at rest.",
+            "helpfulResource": {
+                "displayText": "As a best practice, do not use root user access keys. The access key for your AWS account root user gives full access to all your resources for all AWS services, including your billing information. You cannot reduce the permissions associated with your AWS account root user access key.",
+                "url": "https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html"
+            },
+            "choices": [
+            {
+                "id": "so_4_1",
+                "title": "Secrets are stored in an encrypted store and encryption is enforced.",
+                "helpfulResource":{
+					"displayText": "Use an encrypted secret store. AWS Secrets Manager uses encryption via AWS Key Management Service (AWS KMS) to protect the confidentiality of data at rest.",
+					"url": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/security-encryption.html"
+				},
+                "improvementPlan": {
+					"displayText": "Use an encrypted secret store. AWS Secrets Manager uses encryption via AWS Key Management Service (AWS KMS) to protect the confidentiality of data at rest.",
+					"url": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/security-encryption.html"
+				}
+            },{
+                "id": "so_4_1_no",
+				"title": "None of these"
+            }],
+            "riskRules": [{
+                "condition": "so_4_1",
+                "risk": "NO_RISK"
+            }, {
+                "condition": "default",
+                "risk": "HIGH_RISK"
+            }]
+        },
+        {
+            "id": "so_4_2",
+            "title": "Are secrets short-lived and rotated on a schedule?",
+            "description": "As a best practice, secrets should be short lived. If you don't change your secrets for a long period of time, the secrets become more likely to be compromised. We recommend setting up a workflow - automated or manual to rotate secrets, preferably every 30 days.",
+            "choices": [
+            {
+                "id": "so_4_2_1",
+                "title": "Secrets are short lived and rotated on a schedule.",
+                "helpfulResource":{
+					"displayText": "Secrets management best practices.",
+                    "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/manage-credentials-using-aws-secrets-manager.html"
+                },
+                "improvementPlan": {
+					"displayText": "Implement secret rotation using AWS Secrets Manager.",
+					"url": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html"
+                }
+            },
+            {
+                "id": "so_4_2_2",
+                "title": "Third party API keys cannot be rotated easily but are stored in an encrypted secrets store.",
+                "helpfulResource":{
+					"displayText": "Data protection in Secrets Manager.",
+                    "url": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/data-protection.html"
+                },
+                "improvementPlan": {
+					"displayText": "Use an encrypted secret store. AWS Secrets Manager uses encryption via AWS Key Management Service (AWS KMS) to protect the confidentiality of data at rest.",
+					"url": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/security-encryption.html"
+				}
+            },{
+                "id": "so_4_2_no",
+				"title": "None of these"
+            }],           
+            "riskRules": [{
+                "condition": "so_4_2_1 || (so_4_2_1 && so_4_2_2)",
+                "risk": "NO_RISK"
+            },{
+                "condition": "!so_4_2_1 && !so_4_2_2", 
+                "risk": "HIGH_RISK"
+            },{
+                "condition": "default",
+                "risk": "MEDIUM_RISK"
+            }
+
+        ]
+        },
+        {
+            "id": "so_4_3",
+            "title": "Is an access control mechanism implemented for secrets?",
+            "description": "Implement access controls to manage the level of access to  secrets. For example, users likely never need access to secret, applications should only read the secret, however CI/CD systems might need to write secrets.",
+            "choices": [
+            {
+                "id": "so_4_3_1",
+                "title": "Access to secrets is a privileged operation and not business as usual.",
+                "helpfulResource": {
+                    "displayText": "Access control ensures that only approved individuals can perform operations on secrets.",
+                    "url": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html"
+                },
+                "improvementPlan": {
+					"displayText": "Implement access control for secrets ensuring least privilege.",
+					"url": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html"
+				}
+            },{
+                "id": "so_4_3_no",
+				"title": "None of these"
+            }
+            ],               
+            "riskRules": [{
+                "condition": "so_4_3_1",
+                "risk": "NO_RISK"
+            }, {
+                "condition": "default",
+                "risk": "HIGH_RISK"
+            }]
+        },
+        {
+            "id": "so_4_4",
+            "title": "Are secrets embedded in the application code?",
+            "description": "As a security best practice, we recommend that you don't embed secrets directly into code. Embedded secrets can lead to accidental exposure.",
+            "choices": [
+           
+            {
+                "id": "so_4_4_1",
+                "title": "No embedded secrets are in use.",
+                "helpfulResource": {
+                    "displayText": "Using a secret store to manage, retrieve and rotate secrets.",
+                    "url": "https://www.youtube.com/watch?v=qoxxRlwJKZ4"
+                },
+                "improvementPlan": {
+					"displayText": "Configure a workflow to retrieve secrets dynamically as the applications are deployed/configured.",
+					"url": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_basic.html"
+				}
+            },{
+                "id": "so_4_4_no",
+				"title": "None of these"
+            }],          
+            "riskRules": [{
+                "condition": "so_4_4_1",
+                "risk": "NO_RISK"
+            }, {
+                "condition": "default",
+                "risk": "HIGH_RISK"
+            }]
+        }]
+    },
+	{
+		"id": "SO_5",
+        "name": "SO 5. Network Access Control",
+        "questions": [
+        {
+            "id": "so_5_1",
+            "title": "Is a layered network in place and traffic controlled at all layers?",
+            "description": "Amazon Virtual Private Cloud (Amazon VPC) enables you to launch AWS resources into a virtual network that you've defined. It is logically isolated from other virtual networks in the AWS Cloud. You can launch your AWS resources, such as Amazon EC2 instances, into your VPC.",
+            "helpfulResource": {
+                "displayText": "Amazon Virtual Private Cloud (Amazon VPC) enables you to launch AWS resources into a virtual network that you've defined. This virtual network closely resembles a traditional network that you'd operate in your own data center, with the benefits of using the scalable infrastructure of AWS.",
+                "url": "https://docs.aws.amazon.com/vpc/latest/userguide/how-it-works.html"
+            },
+            "choices": [
+            {
+                "id": "so_5_1_1",
+                "title": "Default VPC is being used for production workloads.",
+                "helpfulResource":{
+					"displayText": "A default VPC is ready for you to use so that you don't have to create and configure your own VPC. It is suitable for getting started quickly, and for launching public instances such as a blog or simple website.",
+                    "url": "https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html#default-vpc-components"
+				},
+                "improvementPlan": {
+					"displayText": "Security Best practices to control traffic for your VPC.",
+                    "url": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-best-practices.html"
+
+				}
+            },
+            {
+                "id": "so_5_1_2",
+                "title": "Custom VPC is being used for production workloads.",
+				"helpfulResource":{
+					"displayText": "You can create your own custom (non-default) vpc with private and pubic subnets, gateways, route tables and other networking components. It allows you to customize your network configuration for your VPC. For production workload, you should leverage multiple layers of security in your VPC, including security groups and network access control lists, to help control access to your resources.",
+                    "url": "https://docs.aws.amazon.com/vpc/latest/userguide/working-with-vpcs.html"
+				},
+                "improvementPlan": {
+					"displayText": "Build a layered VPC.",
+					"url": "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Networking.html"
+				}
+            },
+			{
+				"id": "so_5_1_3",
+                "title": "Network ACLs (NACLs) are configured to secure subnets.",
+                "helpfulResource":{
+					"displayText": "Network ACLs are an additional layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets. Network traffic entering and exiting each subnet can be allowed or denied via Network ACLs.",
+                    "url": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html"
+				},
+                "improvementPlan": {
+					"displayText": "Configure Network ACLs as an additional layer of security for your VPC.",
+					"url": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html"
+				}
+			},
+			{
+				"id": "so_5_1_4",
+                "title": "Security Groups are configured to secure resources.",
+                "helpfulResource":{
+					"displayText": "A security group acts as a virtual firewall, controlling the traffic that is allowed to reach and leave the resources that it is associated with. For example, after you associate a security group with an EC2 instance, it controls the inbound and outbound traffic for the instance.",
+                    "url": "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"
+				},                
+                "improvementPlan": {
+					"displayText": "Configure security groups as a virtual firewall for your instance.",
+					"url": "https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"
+				}
+			},{
+                "id": "so_5_1_no",
+				"title": "None of these"
+            }],
+   
+            "riskRules": [{
+                "condition": "(so_5_1_2 || so_5_1_1) && so_5_1_4 && so_5_1_3",
+                "risk": "NO_RISK"
+            },{
+                "condition": "(so_5_1_2 || so_5_1_1) && (so_5_1_3 || so_5_1_4)",
+                "risk": "MEDIUM_RISK"
+            },{
+                 "condition": "default",
+                 "risk": "HIGH_RISK"
+           }]
+        },
+        {
+            "id": "so_5_2",
+            "title": "Is remote access to instances secured through least privilege?",
+            "description": "As a best practice, only allow a select set of individuals or administrator team the privilege to access instances remotely.",
+            "choices": [
+            
+            {
+                "id": "so_5_2_1",
+                "title": "Remote access port open to a restricted IP range such as corporate network or home network.",
+				"helpfulResource":{
+					"displayText": "You have control control to your instance, including the kind of traffic that can reach your instance. For example, you can allow computers from only your corporate network to access your instance.",
+                    "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/authorizing-access-to-an-instance.html"
+				},                
+                "improvementPlan": {
+                    "displayText": "AWS Systems Manager Session Manager to manage your EC2 instances, on-premises servers and virtual machines (VMs).",
+                    "url": "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html"
+                }
+            },
+            {
+                "id": "so_5_2_2",
+                "title": "Interactive remote access configured using AWS Systems Manager Sessions Manager.",
+                "helpfulResource":{
+					"displayText": "Use AWS System Manger Sessions Manger to provide secure, access-controlled, and audited Windows and Linux EC2 instance management. Session Manager removes the need to open inbound ports, manage SSH keys, or use bastion hosts.",
+                    "url": "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html"
+				},
+                "improvementPlan": {
+					"displayText": "Review security best practices while using AWS Systems Manager Sessions Manager.",
+					"url": "https://docs.aws.amazon.com/systems-manager/latest/userguide/security-best-practices.html"
+				}
+            },{
+                "id": "so_5_2_1_no",
+				"title": "None of these"
+            }],          
+            "riskRules": [
+                {
+                "condition": "so_5_2_2",
+                "risk": "NO_RISK"
+                },
+                {
+                    "condition": "so_5_2_1",
+                    "risk": "MEDIUM_RISK"
+                },
+                {
+                    "condition": "default",
+                    "risk": "HIGH_RISK"
+                }]
+        },
+        {
+            "id": "so_5_3",
+            "title": "Is edge protection configured using a web application firewall (WAF)?",
+            "description": "AWS WAF is a web application firewall that helps protect your web applications or APIs against common web exploits and bots that may affect availability, compromise security, or consume excessive resources.",
+            "choices": [
+            {
+                "id": "so_5_3_1",
+                "title": "AWS WAF or other third-party firewall is applied on your website and applications.",
+                "helpfulResource":{
+					"displayText": "AWS WAF is a web application firewall that lets you monitor the HTTP(S) requests that are forwarded to an Amazon CloudFront distribution, an Amazon API Gateway REST API, an Application Load Balancer, or an AWS AppSync GraphQL API. AWS WAF also lets you control access to your content.",
+                    "url": "https://aws.amazon.com/waf/"
+				},
+                "improvementPlan": {
+					"displayText": "Review AWS Web Application Firewall (WAF)",
+					"url": "https://docs.aws.amazon.com/waf/latest/developerguide/getting-started.html"
+				}
+            },{
+                "id": "so_5_3_no",
+				"title": "None of these"
+            }],
+            "riskRules": [{
+                "condition": "so_5_3_1",
+                "risk": "NO_RISK"
+            }, {
+                "condition": "default", 
+                "risk": "MEDIUM_RISK"
+            }]
+        }]
+	},
+	{
+		"id": "SO_6",
+        "name": "SO 6. Patch Management",
+        "questions": [
+        {
+            "id": "so_6_1",
+            "title": "Are vulnerability management workflows configured and in use?",
+            "description": "Fixing software vulnerabilities through patching reduces the the scope of impact in an event and improves the security posture of the systems.",
+            "helpfulResource": {
+				"displayText": "As per the Australian Cyber Security Centre's (ACSC) guidelines on assessing vulnerabilities and applying patches, once a patch is released by a vendor, the patch should be applied in a timeframe commensurate with an organisation’s exposure to the security vulnerability and the level of cyber threat the organisation is aiming to protect themselves against.",
+                "url": "https://www.cyber.gov.au/acsc/view-all-content/publications/assessing-security-vulnerabilities-and-applying-patches"
+            },
+            "choices": [
+            {
+                "id": "so_6_1_1",
+                "title": "Patching is an automated process achieved by building new images and recycling instances/containers on a schedule.",
+                "helpfulResource":{
+					"displayText": "Automate the process of scanning and patching managed nodes with both security related and other types of updates, auto-approving patches within days of their release, and perform vulnerability assessment to protect your workload.",
+                    "url": "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-patch.html"
+				},
+				"improvementPlan": {
+                    "displayText": "Use AWS Systems Manager Patch Manager to vulnerability management workflow.",
+                    "url": "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-patch.html"
+
+				}
+            },
+            {
+                "id": "so_6_1_2",
+                "title": "Patching is a manual process. A team/individual perform patching manually on instances/containers.",
+                "helpfulResource":{
+					"displayText": "Manually patching EC2, containers or on-premises resources on AWS either using third-party tool or AWS Systems Manager on-demand patching.",
+                    "url": "https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-on-demand.html"
+				},
+				"improvementPlan": {
+                    "displayText": "Consider using AWS Systems Manager Patch Manager to configure regular patching cadence.",
+                    "url": "https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-patch.html"
+
+                }
+            },{
+                "id": "so_6_1_no",
+				"title": "None of these"
+            }
+            
+            ],
+
+            "riskRules": [
+                {
+                "condition": "so_6_1_1",
+                "risk": "NO_RISK"
+                }, {
+                "condition": "so_6_1_2",
+                "risk": "MEDIUM_RISK"
+                },{
+                "condition": "default", 
+                "risk": "HIGH_RISK"
+                }
+        	]
+        }]
+	},
+	{
+		"id": "SO_7",
+        "name": "SO 7. Public S3 Buckets",
+        "questions": [
+        {
+            "id": "so_7_1",
+            "title": "Is S3 Block Public Access enabled to secure data in S3 buckets?",
+            "description": "Using S3 Block Public Access, account administrators and bucket owners can easily set up centralized controls to limit public access to their Amazon S3 resources that are enforced regardless of how the resources are created.",
+            "helpfulResource": {
+				"displayText": "Amazon S3 Block Public Access provides four settings. These settings are independent and can be used in any combination. Each setting can be applied to an access point, a bucket, or an entire AWS account. If the block public access settings for the access point, bucket, or account differ, then Amazon S3 applies the most restrictive combination of the access point, bucket, and account settings.",
+		        "url": "https://www.youtube.com/watch?v=oAtYXZIDNV0&list=PLhr1KZpdzukf-9zZxQD6zxCaPoeXAJ60u&index=17"
+			},
+            "choices": [
+            	{
+                "id": "so_7_1_1",
+                "title": "Amazon S3 Block Public Access is enabled.",
+                "helpfulResource": {
+					"displayText": "To ensure that public access to all your S3 buckets and objects is blocked, turn on block all public access. These settings apply account-wide for all current and future buckets. ",
+	                "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html"
+            	},
+                "improvementPlan": {
+					"displayText": "Block public access to your Amazon S3 buckets.",
+                    "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html"
+
+				}
+            },
+			{
+				"id": "so_7_1_2",
+				"title": "Bucket Policies are configured to control access to buckets.",
+				"helpfulResource": {
+					"displayText": "A bucket policy is a resource-based policy that you can use to grant access permissions to your bucket and the objects in it. Bucket policies allow or deny requests based on the elements in the policy, including the requester, S3 actions, resources, and aspects or conditions of the request.",
+					"url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html"
+            	},
+				"improvementPlan": {
+					"displayText": "Bucket policies to control access to buckets.",
+					"url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html"
+				}
+			},{
+                "id": "so_7_1_no",
+				"title": "None of these"
+            }],           
+            "riskRules": [{
+                "condition": "so_7_1_1 && so_7_1_2",
+                "risk": "NO_RISK"
+            },
+			{
+				"condition": "so_7_1_1 && !so_7_1_2",
+                "risk": "MEDIUM_RISK"
+			},
+            {
+                "condition": "default",
+                "risk": "HIGH_RISK"
+            }
+        ]
+        },
+		{
+            "id": "so_7_2",
+            "title": "Are websites hosted on public S3 buckets configured securely?",
+            "description": "You can use Amazon S3 to host a static website. On a static website, individual webpages include static content. They might also contain client-side scripts.",
+            "choices": [
+            {
+                "id": "so_7_2_1",
+                "title": "Public S3 buckets are used for web hosting.",
+                "helpfulResource":{
+					"displayText": "You can use Amazon S3 to host a static website. On a static website, individual webpages include static content.\n When you configure a bucket as a static website, if you want your website to be public, you can grant public read access. ",
+                    "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html"
+				},
+                "improvementPlan": {
+					"displayText": "Use AWS samples solution implementation to create a secure static website for your registered domain name.",
+                    "url": "https://github.com/aws-samples/amazon-cloudfront-secure-static-site"
+
+				}
+            },
+            {
+                "id": "so_7_2_2",
+                "title": "Origin Access Control (OAC) configured with Amazon CloudFront and Amazon S3 for hosting purposes.",
+                "helpfulResource":{
+					"displayText": "Configuring secure access and restricting access to content. CloudFront distribution to serve your website to viewers with low latency. \n The distribution is configured with an origin access identity to make sure that the website is accessible only through CloudFront, not directly from S3.",
+                    "url": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/getting-started-secure-static-website-cloudformation-template.html"
+				},
+                "improvementPlan": {
+					"displayText": "Restricting access to Amazon S3 content by using an origin access control (OAC).",
+					"url": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html"
+				}
+            },
+			{
+				"id": "so_7_2_3",
+                "title": "Origin security configured for Amazon CloudFront custom origin.",
+                "helpfulResource":{
+					"displayText": "Configure origin security with Amazon CloudFront to protect communication between Amazon CloudFront and your origin server.\n It includes enforcing HTTPS-only connection between CloudFront and your origin webserver, supporting for TLSv1.1 and TLSv1.2 between CloudFront and your origin webserver, and adding or modifying request headers forwarded from CloudFront to your origin",
+					"url": "https://aws.amazon.com/about-aws/whats-new/2016/01/amazon-cloudfront-adds-new-origin-security-features/"
+				},
+                "improvementPlan": {
+					"displayText": "Configure origin security with Amazon CloudFront.",
+                    "url": "https://aws.amazon.com/about-aws/whats-new/2016/01/amazon-cloudfront-adds-new-origin-security-features/"
+				}
+			},{
+                "id": "so_7_2_no",
+				"title": "None of these"
+            }],
+      
+            "riskRules": [{
+                "condition": "so_7_2_1 && so_7_2_2 && so_7_2_3",
+                "risk": "NO_RISK"
+            },{
+                "condition": "so_7_2_1 && so_7_2_2",
+                "risk": "MEDIUM_RISK"
+            },{
+                "condition": "default",
+                "risk": "HIGH_RISK"
+            }]
+        }]
+	},
+	{
+		"id": "SO_8",
+        "name": "SO 8. Detective Controls",
+        "questions": [
+        {
+            "id": "so_8_1",
+            "title": "Is AWS CloudTrail enabled and in use?",
+            "description": "AWS CloudTrail is an AWS service that helps you enable governance, compliance, and operational and risk auditing of your AWS account. Actions taken by a user, role, or an AWS service are recorded as events in CloudTrail. Events include actions taken in the AWS Management Console, AWS Command Line Interface, and AWS SDKs and APIs.",
+            "choices": [
+            {
+                "id": "so_8_1_1",
+                "title": "Management trail is configured.",
+                  "helpfulResource": {
+					"displayText": "Visibility into your AWS account activity is a key aspect of security and operational best practices. \n\n\n\nYou can use CloudTrail to view, search, download, archive, analyze, and respond to account activity across your AWS infrastructure. \n\nYou can identify who or what took which action, what resources were acted upon, when the event occurred, and other details to help you analyze and respond to activity in your AWS account.",
+	                "url": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-tutorial.html"
+	            },
+                "improvementPlan": {
+					"displayText": "Security best practices in AWS CloudTrail.",
+                    "url": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/best-practices-security.html"
+
+				}
+            },{
+                "id": "so_8_1_no",
+				"title": "None of these"
+            }
+            ],
+            "riskRules": [
+            {
+                "condition": "so_8_1_1",
+                "risk": "NO_RISK"
+            },{
+                "condition": "default",
+                "risk": "HIGH_RISK"
+            }]
+        },
+        {
+            "id": "so_8_2",
+            "title": "Is Amazon GuardDuty enabled and in use?",
+            "description": "GuardDuty is an intelligent threat detection service that continuously monitors your AWS accounts, workloads, runtime activity, and data for malicious activity.If potential malicious activity, such as anomalous behavior, credential exfiltration, or command and control infrastructure (C2) communication is detected, GuardDuty generates detailed security findings that can be used for security visibility and assisting in remediation.",
+            "choices": [{
+                "id": "so_8_2_1",
+                "title": "Threat detection is configured.",
+                "helpfulResource":{
+                      "displayText": "It is important to utilize a mechanism that can properly identify potentially malicious activity. Amazon GuardDuty provides security monitoring capabilities by analyzing AWS CloudTrail data events, CloudTrail management event logs, DNS logs, Amazon EBS volume data, Kubernetes audit logs, Amazon VPC flow logs, RDS login activity, and other.",
+                      "url": "https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_settingup.html"
+                },
+                "improvementPlan": {
+                    "displayText": "Detect potentially malicious activity using Amazon GuardDuty.",
+                    "url": "https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_settingup.html"
+                }
+            },
+            {
+                "id": "so_8_2_no",
+                    "title": "None of these"
+            }],
+            "riskRules": [{
+                "condition": "so_8_2_1",
+                "risk": "NO_RISK"
+            },{
+                "condition": "default",
+                "risk": "MEDIUM_RISK"
+            }]
+        },
+        {
+            "id": "so_8_3",
+            "title": "Is AWS Cost Anomaly Detection enabled and in use?",
+            "description": "AWS Cost Anomaly Detection leverages advanced Machine Learning technologies to identify anomalous spend and root causes, so you can quickly take action.",
+            "choices": [
+            {
+                "id": "so_8_3_1",
+                "title": "Cost anomaly detection is configured.",
+                "helpfulResource":{
+					"displayText": "It helps you detect and alert on any abnormal or sudden spend increases in your AWS account. This is possible by using machine learning to understand your spend patterns and trigger alert as they seem abnormal.",
+                    "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Anomaly_Detection.html"
+				},
+                "improvementPlan": {
+					"displayText": "Detecting unusual spend with cost anomaly detection.",
+                    "url": "https://docs.aws.amazon.com/cost-management/latest/userguide/manage-ad.html"
+
+				}
+            },{
+                "id": "so_8_3_no",
+				"title": "None of these"
+            }],
+            "riskRules": [{
+                "condition": "so_8_3_1",
+                "risk": "NO_RISK"
+            },{
+                "condition": "default",
+                "risk": "MEDIUM_RISK"
+            }]
+        },
+		{
+            "id": "so_8_4",
+            "title": "Is an Amazon CloudWatch Billing Alarm configured?",
+            "description": "You can monitor your estimated AWS charges by using Amazon CloudWatch. When you enable the monitoring of estimated charges for your AWS account, the estimated charges are calculated and sent several times daily to CloudWatch as metric data.",
+            "choices": [
+            {
+                "id": "so_8_4_1",
+                "title": "Billing alarm is configured.",
+                "helpfulResource":{
+					"displayText": "By using Amazon CloudWatch, you can better monitor your estimated AWS charges. You can be alerted and proactively notified when the calculated estimated charges exceed the defined threshold",
+                    "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html"
+				},
+                "improvementPlan": {
+					"displayText": "Create a billing alarm to monitor your estimated AWS charges.",
+                    "url": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html#creating_billing_alarm_with_wizard"
+				}
+            },{
+                "id": "so_8_4_no",
+				"title": "None of these"
+            }],
+            "riskRules": [{
+                "condition": "so_8_4_1",
+                "risk": "NO_RISK"
+            },{
+                "condition": "default",
+                "risk": "MEDIUM_RISK"
+            }]
+        }]
+	}]
+}
