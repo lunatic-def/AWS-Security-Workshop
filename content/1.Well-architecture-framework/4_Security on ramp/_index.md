@@ -100,19 +100,19 @@ Resources like databases and instances can be remotely accessed via the network 
 
 ### Automated assessment
 
-![topo1](/images/on-ram1/topo1.PNG)
+![topo1](/AWS-Security-Workshop/images/on-ram1/topo1.PNG)
 
 1. Security hub collect checks from AWS config compliant assessment example:
-   ![1](/images/on-ram1/1-5.PNG)
-   ![1](/images/on-ram1/1-6.PNG)
-   ![1](/images/on-ram1/1-7.PNG)
+   ![1](/AWS-Security-Workshop/images/on-ram1/1-5.PNG)
+   ![1](/AWS-Security-Workshop/images/on-ram1/1-6.PNG)
+   ![1](/AWS-Security-Workshop/images/on-ram1/1-7.PNG)
 
 AWS Security hub findings using the benchmark enabled:
 
 - CIS AWS Foundation benchmark
 - Foundational security best practices
-  ![1](/images/on-ram1/1-8.PNG)
-  ![1](/images/on-ram1/1-2.PNG)
+  ![1](/AWS-Security-Workshop/images/on-ram1/1-8.PNG)
+  ![1](/AWS-Security-Workshop/images/on-ram1/1-2.PNG)
 
 2. Custom-insight:
 
@@ -197,15 +197,15 @@ AWS Security Hub Checks:
 ```
 
 **lambda function filter base on Security hub controls:**
-![1](/images/on-ram1/1-9.PNG)
+![1](/AWS-Security-Workshop/images/on-ram1/1-9.PNG)
 **[Lambda function file]()**
 
-![1](/images/on-ram1/1-4.PNG)
+![1](/AWS-Security-Workshop/images/on-ram1/1-4.PNG)
 Remediation link for guide on how to fix issues:
-![1](/images/on-ram1/res1.PNG)
+![1](/AWS-Security-Workshop/images/on-ram1/res1.PNG)
 
 ### Manual assessment
-![2](/images/on-ram1/topo2.PNG)
+![2](/AWS-Security-Workshop/images/on-ram1/topo2.PNG)
 
 For the manual assessment -> AWS Well architected tools
 - Custom lens (can be shared between accounts)
@@ -255,18 +255,18 @@ For the manual assessment -> AWS Well architected tools
 ```
 
 **Create custom lens:**
-![2](/images/on-ram1/2.PNG)
+![2](/AWS-Security-Workshop/images/on-ram1/2.PNG)
 **Pulish the lens**
-![2](/images/on-ram1/2-1.PNG)
+![2](/AWS-Security-Workshop/images/on-ram1/2-1.PNG)
 **Define the workload:**
-![2](/images/on-ram1/2-2.PNG)
-![2](/images/on-ram1/2-3.PNG)
+![2](/AWS-Security-Workshop/images/on-ram1/2-2.PNG)
+![2](/AWS-Security-Workshop/images/on-ram1/2-3.PNG)
 **Scaning result:**
-![2](/images/on-ram1/2-4.PNG)
-![2](/images/on-ram1/2-6.PNG)
-![2](/images/on-ram1/2-5.PNG)
+![2](/AWS-Security-Workshop/images/on-ram1/2-4.PNG)
+![2](/AWS-Security-Workshop/images/on-ram1/2-6.PNG)
+![2](/AWS-Security-Workshop/images/on-ram1/2-5.PNG)
 ### AWS trusted advisor
-![2](/images/on-ram1/topo3.PNG)
+![2](/AWS-Security-Workshop/images/on-ram1/topo3.PNG)
 
 If you have a Basic Support and Developer Support plan, you can use the Trusted Advisor console to access all checks in the Service limits  category and a subset of checks in the security category:
 

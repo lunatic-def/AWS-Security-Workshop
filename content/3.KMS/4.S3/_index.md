@@ -48,12 +48,12 @@ DynamoDB encryption at rest provides an additional layer of data protection by s
 
         -> determines the encryption algorithms to use and how to generate and protect encryption and signing keys.
 
-    ![1](/images/kms_3/1.PNG)
+    ![1](/AWS-Security-Workshop/images/kms_3/1.PNG)
 
 **Direct KMS CMP**
 
 - Protects your tavle items under an KMS key
-  ![1](/images/kms_3/2.PNG)
+  ![1](/AWS-Security-Workshop/images/kms_3/2.PNG)
 
 ```python
 #Encrypt table sdk - example

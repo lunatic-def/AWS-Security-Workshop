@@ -34,16 +34,16 @@ The adversary continue to perform:
 
 **[Step 6: stimulate the attack](#stimulate-attack)**
 
-![1](/images/gd_1/Architecture.png)
+![1](/AWS-Security-Workshop/images/gd_1/Architecture.png)
 
 ### Setups
 
 **1) Create VPC and EC2 instances**
-![1](/images/gd_1/1-VPC.png)
-![1](/images/gd_1/2-ec2.png)
+![1](/AWS-Security-Workshop/images/gd_1/1-VPC.png)
+![1](/AWS-Security-Workshop/images/gd_1/2-ec2.png)
 **Basic-linux Target - Security groups**
-![1](/images/gd_1/3-linux-sg.png)
-![1](/images/gd_1/3.1-linux-sg.png)
+![1](/AWS-Security-Workshop/images/gd_1/3-linux-sg.png)
+![1](/AWS-Security-Workshop/images/gd_1/3.1-linux-sg.png)
 
 ### Create restricted policy and groups
 
@@ -52,20 +52,20 @@ The adversary continue to perform:
   - The compromised instance will be isolated
 
 1. Create sg only allow the connection of Forensics groups (SSH & RDB)
-   ![1](/images/gd_1/5-forensic-sg.png)
+   ![1](/AWS-Security-Workshop/images/gd_1/5-forensic-sg.png)
 2. Create user group with restricted policy "Deny-termination-of-isolated-instances"
    Policy:
-   ![1](/images/gd_1/5-deny-termination.png)
+   ![1](/AWS-Security-Workshop/images/gd_1/5-deny-termination.png)
    Group:
-   ![1](/images/gd_1/6.png)
-   ![1](/images/gd_1/6-1.png)
+   ![1](/AWS-Security-Workshop/images/gd_1/6.png)
+   ![1](/AWS-Security-Workshop/images/gd_1/6-1.png)
 
 ### Create lambda function
 
 1. Create role to assign to lambda function: allow ec2 and cloudwatch logs
-   ![1](/images/gd_1/7.png)
+   ![1](/AWS-Security-Workshop/images/gd_1/7.png)
 2. Create lambda func using python with "ec2instance-containment-with-forensics-role"
-   ![1](/images/gd_1/8.png)
+   ![1](/AWS-Security-Workshop/images/gd_1/8.png)
 
 Python code function:
 
@@ -141,7 +141,7 @@ def lambda_handler(event, context):
 ```
 
 Environment variable:
-![1](/images/gd_1/8-2.png)
+![1](/AWS-Security-Workshop/images/gd_1/8-2.png)
 
 ### Test lambda function:
 
@@ -174,8 +174,8 @@ Environment variable:
 }
 ```
 
-![1](/images/gd_1/9-testevent.png)
-![1](/images/gd_1/9.1.png)
+![1](/AWS-Security-Workshop/images/gd_1/9-testevent.png)
+![1](/AWS-Security-Workshop/images/gd_1/9.1.png)
 **CloudWatch logs**
 
 - Lambda has recorded the event an output the nessary information of: -> Instance ID, Describe the instance
@@ -184,13 +184,13 @@ Environment variable:
 - Create tags "isolated"
 - Chance the security groups of the instance into "ForensicSG"
 - Create a snapshot EBS
-  ![1](/images/gd_1/10.png)
-  ![1](/images/gd_1/10.1.png)
+  ![1](/AWS-Security-Workshop/images/gd_1/10.png)
+  ![1](/AWS-Security-Workshop/images/gd_1/10.1.png)
 
 **Result**
-![1](/images/gd_1/11.png)
-![1](/images/gd_1/11.1.png)
-![1](/images/gd_1/11.2.png)
+![1](/AWS-Security-Workshop/images/gd_1/11.png)
+![1](/AWS-Security-Workshop/images/gd_1/11.1.png)
+![1](/AWS-Security-Workshop/images/gd_1/11.2.png)
 
 ### EventBridge Rule
 
@@ -212,24 +212,24 @@ Define the custom event pattern with the following content to catch outgoing ano
 }
 ```
 
-![1](/images/gd_1/12.png)
-![1](/images/gd_1/12-lambda&eventbr.png)
-![1](/images/gd_1/12.2.png)
+![1](/AWS-Security-Workshop/images/gd_1/12.png)
+![1](/AWS-Security-Workshop/images/gd_1/12-lambda&eventbr.png)
+![1](/AWS-Security-Workshop/images/gd_1/12.2.png)
 
 ### Stimulate attack
 
 1. Get the TestLinux-CryptoMining privateIP (just simply create a new instance of linux which allow ssh within internal network)
-   ![1](/images/gd_1/13-test-ec2.png)
+   ![1](/AWS-Security-Workshop/images/gd_1/13-test-ec2.png)
 2. Connect to target TestLinux instance through RedTeam instance call the fake domain that is used to test Command & Control Findings with the following command:
 
 ```shell
 dig GuardDutyC2ActivityB.com any
 ```
 
-![1](/images/gd_1/13.1.png) 3) Guardduty will create a finging of "Backdoor C&C" event
-![1](/images/gd_1/14-res.png) 4) Result:
-![1](/images/gd_1/14.1.png)
-![1](/images/gd_1/14.2.png)
-![1](/images/gd_1/14.3.png)
+![1](/AWS-Security-Workshop/images/gd_1/13.1.png) 3) Guardduty will create a finging of "Backdoor C&C" event
+![1](/AWS-Security-Workshop/images/gd_1/14-res.png) 4) Result:
+![1](/AWS-Security-Workshop/images/gd_1/14.1.png)
+![1](/AWS-Security-Workshop/images/gd_1/14.2.png)
+![1](/AWS-Security-Workshop/images/gd_1/14.3.png)
 
 ## Step-Functions response

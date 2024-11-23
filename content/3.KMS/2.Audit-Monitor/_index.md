@@ -17,15 +17,15 @@ Track KMS API calls made on keys -> Determine which API was called, who called i
 ```shell
 aws kms generate-data-key --key-id alias/kms-workshop --key-spec AES_256 --encryption-context project=kms-workshop
 ```
-![4](/images/kms_2/4.png)
-![4](/images/kms_2/4.1.png)
+![4](/AWS-Security-Workshop/images/kms_2/4.png)
+![4](/AWS-Security-Workshop/images/kms_2/4.1.png)
 
 ## CloudWatch
 [Static threshold](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ConsoleAlarms.html)
 
 Metrics for KMS service and keys -> import key material into a KMS key and set it to expire.
 If you click through here you will find the metric "SecondsUntilKeyMaterialExpiration" for the KMS key which was built with imported key material. With this metric you can now build an alarm into CloudWatch to warn you about the expiration of the key material for example.
-![4](/images/kms_2/5.png)
+![4](/AWS-Security-Workshop/images/kms_2/5.png)
 
 ## AWS Access Analyzer
 
@@ -62,28 +62,28 @@ aws sns subscribe \
 
 ```
 
-![1](/images/kms_2/1-sns.png)
-![1.1](/images/kms_2/1-1sns.png)
+![1](/AWS-Security-Workshop/images/kms_2/1-sns.png)
+![1.1](/AWS-Security-Workshop/images/kms_2/1-1sns.png)
 
 2. Create Eventbridge rule
 
 - create rule to send sms notification about external access analyzer findings.
-  ![1.1](/images/kms_2/1.2-rule.png)
-  ![1.1](/images/kms_2/1.3-eventpattern.png)
-  ![1.1](/images/kms_2/1.4-snstarget.png)
-  ![1.1](/images/kms_2/1.5.png)
+  ![1.1](/AWS-Security-Workshop/images/kms_2/1.2-rule.png)
+  ![1.1](/AWS-Security-Workshop/images/kms_2/1.3-eventpattern.png)
+  ![1.1](/AWS-Security-Workshop/images/kms_2/1.4-snstarget.png)
+  ![1.1](/AWS-Security-Workshop/images/kms_2/1.5.png)
 
 3. Create Access analyzer for External access analysis within current account
-   ![2](/images/kms_2/2-accessanalyzer.png)
+   ![2](/AWS-Security-Workshop/images/kms_2/2-accessanalyzer.png)
 4. Test if Access Analyzer generates findings -> public access policy for KMS key
-   ![2](/images/kms_2/2.1-key.png)
-   ![2](/images/kms_2/2.2-key.png)
+   ![2](/AWS-Security-Workshop/images/kms_2/2.1-key.png)
+   ![2](/AWS-Security-Workshop/images/kms_2/2.2-key.png)
    => The call above added a "\*" principal to the key policy, making the key accessible for any AWS principal. From now on, Access Analyzer will detect any public access to your AWS KMS key and generate a finding. The CloudWatch events rule will be invoked and will publish a message to the Amazon SNS topic.
 
 OUTPUTS:
-![3](/images/kms_2/3-res.png)
-![3](/images/kms_2/3.1.png)
-![3](/images/kms_2/3.2.png)
+![3](/AWS-Security-Workshop/images/kms_2/3-res.png)
+![3](/AWS-Security-Workshop/images/kms_2/3.1.png)
+![3](/AWS-Security-Workshop/images/kms_2/3.2.png)
 
 ```json
 {

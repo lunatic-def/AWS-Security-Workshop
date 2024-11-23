@@ -26,7 +26,7 @@ Pathching is a vital component to any security strategy which ensures that your 
 
 ### Application infrastructure
 
-![topo](/images/well_4/topo.png)
+![topo](/AWS-Security-Workshop/images/well_4/topo.png)
 Cloudformation blue-green update on autoscaling update policy:
 
 [CloudFormation-Updatepolicy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatepolicy.html)
@@ -68,9 +68,9 @@ Upon completion of this section we will have an Image builder pipeline that will
 #### Create IAM role
 
 **SSM service-role**
-![2](/images/well_4/2-2.PNG)
+![2](/AWS-Security-Workshop/images/well_4/2-2.PNG)
 Add inline policy:
-![2](/images/well_4/2-3.PNG)
+![2](/AWS-Security-Workshop/images/well_4/2-3.PNG)
 
 #### Create a Security Group
 
@@ -83,7 +83,7 @@ Add inline policy:
 ### Build Automation with SSM
 
 Orchestrate the build of a newly patched AMI and its associated deployment into an application cluster.
-![topo](/images/well_4/topo2.png)
+![topo](/AWS-Security-Workshop/images/well_4/topo2.png)
 To automate this using [AWS SM Automation Document](https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-documents.html)
 
 - Automate the execution of the EC2 Image Builder Pipeline.
