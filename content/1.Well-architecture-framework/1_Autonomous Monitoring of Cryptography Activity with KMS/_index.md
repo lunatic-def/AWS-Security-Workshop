@@ -18,7 +18,7 @@ In this labs provide an example scenario of monitoring KMS servie for encryption
 - SNS: send email notification when an event occurs
 
 **Topology**
-![1](AWS-Security-Workshop/images/well_1/topo.png)
+![1](/AWS-Security-Workshop/images/well_1/topo.png)
 
 ## Steps:
 - **[Step 1: Deploy web application for encrypt/decrypt testing with ECR](#deploy-application-and-ecr)**
@@ -82,15 +82,15 @@ function decryptData( KeyId, CiphertextBlob ){
 When a **invalid key** used for decryption purpose, an event on cloudtrail will be created using the ssm:assumed role of the application service role, this will trigger the cloudwatch alert metric -> will go deeper later on
 {{% /notice %}}
 **2) Create ECR and push application**
-![1](AWS-Security-Workshop/images/well_1/1.1.PNG)
-![1](AWS-Security-Workshop/images/well_1/2-ecr-app.PNG)
-![1](AWS-Security-Workshop/images/well_1/2.1.PNG)
+![1](/AWS-Security-Workshop/images/well_1/1.1.PNG)
+![1](/AWS-Security-Workshop/images/well_1/2-ecr-app.PNG)
+![1](/AWS-Security-Workshop/images/well_1/2.1.PNG)
 **3) Create RDS, ECS role policy and ECS task,service**
 RDS database:
-![2](AWS-Security-Workshop/images/well_1/2.4-rds.PNG)
+![2](/AWS-Security-Workshop/images/well_1/2.4-rds.PNG)
 ECS service application information:
-![2](AWS-Security-Workshop/images/well_1/2.5-ecs.PNG)
-![2](AWS-Security-Workshop/images/well_1/2.5-ecstask-info.PNG)
+![2](/AWS-Security-Workshop/images/well_1/2.5-ecs.PNG)
+![2](/AWS-Security-Workshop/images/well_1/2.5-ecstask-info.PNG)
 ECS service roles: allow putting loggroups, create/get KMS key, RDS Secret manger
 ```js
 AssumeRolePolicyDocument:
@@ -123,20 +123,20 @@ AssumeRolePolicyDocument:
                 Action: 'logs:*'
                 Resource: !GetAtt ECSCloudWatchLogsGroup.Arn 
 ```
-![2](AWS-Security-Workshop/images/well_1/2.5-ecs-taskrole.PNG)
+![2](/AWS-Security-Workshop/images/well_1/2.5-ecs-taskrole.PNG)
 
 **4) Test simple connection:**
 
 Base ALB DNS get access to application: 
-![2](AWS-Security-Workshop/images/well_1/2.6-alb.PNG)
+![2](/AWS-Security-Workshop/images/well_1/2.6-alb.PNG)
 **Test Encryption**
 ```shell
 curl --header "Content-Type: application/json" --request POST --data '{"Name":"Anh La","Text":"Test clean text for encryption purpose!"}' App-Pattern1-lTZxP9T4MFn7-ACCOUNT-ID.ap-southeast-2.elb.amazonaws.com/encrypt
 ```
-![2](AWS-Security-Workshop/images/well_1/3-curltext.PNG)
+![2](/AWS-Security-Workshop/images/well_1/3-curltext.PNG)
 A KMS key is created using the service assumed role account:
-![2](AWS-Security-Workshop/images/well_1/2.6-key.PNG)
-![2](AWS-Security-Workshop/images/well_1/3.1-record.PNG)
+![2](/AWS-Security-Workshop/images/well_1/2.6-key.PNG)
+![2](/AWS-Security-Workshop/images/well_1/3.1-record.PNG)
 ### Configure CloudTrail 
 **1) Create Cloudtrail 's trail name "Logging-trail" with management events API activity - "Read,Write" and cloudwatch logging enable**
 
@@ -166,37 +166,37 @@ AssumeRolePolicyDocument:
                 Resource: !GetAtt Pattern1CloudWatchLogGroup.Arn
 
 ```
-![4](AWS-Security-Workshop/images/well_1/4.1-cloudtrail-mevent.png)
-![4](AWS-Security-Workshop/images/well_1/4-cwcloudtrail.png)
+![4](/AWS-Security-Workshop/images/well_1/4.1-cloudtrail-mevent.png)
+![4](/AWS-Security-Workshop/images/well_1/4-cwcloudtrail.png)
 
 **CloudWatch logs created by cloudtrail**
-![4](AWS-Security-Workshop/images/well_1/4.2-cwlogs.png)
+![4](/AWS-Security-Workshop/images/well_1/4.2-cwlogs.png)
 ### Configure CloudWatch Logging and Alarm 
 1) Create CloudWatch metric filter
-![5](AWS-Security-Workshop/images/well_1/5.png)
+![5](/AWS-Security-Workshop/images/well_1/5.png)
 Filter pattern base on **'eventSource="kms.amazonaws.com'** -> The filter which we created in the previous step will look for all error codes which come from an eventSource of kms.amazonaws.com where the identity of the request matches the ECS Task role ARN.(Which belongs to the application KMS API calling event within cloudtrail)
 
 ```shell
 { $.errorCode = "*" && $.eventSource= "kms.amazonaws.com" && $.userIdentity.sessionContext.sessionIssuer.arn= "arn:aws:iam::ACCOUNT-ID:role/App-ECSTaskRole" }
 ```
-![5](AWS-Security-Workshop/images/well_1/5.1-filterpattern.png)
-![5](AWS-Security-Workshop/images/well_1/5.2-assignmetric.png)
+![5](/AWS-Security-Workshop/images/well_1/5.1-filterpattern.png)
+![5](/AWS-Security-Workshop/images/well_1/5.2-assignmetric.png)
 
 2) Create metric CloudWatch alarm: assigned threshold > 1
 
 => Alarm subscribe to SNS email notification alert:
-![5](AWS-Security-Workshop/images/well_1/5.3-metricalarm.png)
-![5](AWS-Security-Workshop/images/well_1/5.4-period.png)
-![5](AWS-Security-Workshop/images/well_1/5.4-period2.png)
-![5](AWS-Security-Workshop/images/well_1/5.5-snstopic.png)
-![5](AWS-Security-Workshop/images/well_1/5.5-snstopic2.png)
-![5](AWS-Security-Workshop/images/well_1/5.6-snsemail.png)
+![5](/AWS-Security-Workshop/images/well_1/5.3-metricalarm.png)
+![5](/AWS-Security-Workshop/images/well_1/5.4-period.png)
+![5](/AWS-Security-Workshop/images/well_1/5.4-period2.png)
+![5](/AWS-Security-Workshop/images/well_1/5.5-snstopic.png)
+![5](/AWS-Security-Workshop/images/well_1/5.5-snstopic2.png)
+![5](/AWS-Security-Workshop/images/well_1/5.6-snsemail.png)
 ### Testing the workload
 Decrypt with the wrong key example:
-![6](AWS-Security-Workshop/images/well_1/6.1-wrongkey.png)
+![6](/AWS-Security-Workshop/images/well_1/6.1-wrongkey.png)
 CloudWatch API event: **'errorCode="IncorrectKeyException"'**
-![7](AWS-Security-Workshop/images/well_1/7-API_falsedecrypt.PNG)
+![7](/AWS-Security-Workshop/images/well_1/7-API_falsedecrypt.PNG)
 SNS email notification:
-![7](AWS-Security-Workshop/images/well_1/7.1-emailresult.png)
+![7](/AWS-Security-Workshop/images/well_1/7.1-emailresult.png)
 CloudWatch alarm:
-![7](AWS-Security-Workshop/images/well_1/7.2-cwlogs.png)
+![7](/AWS-Security-Workshop/images/well_1/7.2-cwlogs.png)
